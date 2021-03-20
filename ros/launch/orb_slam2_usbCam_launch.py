@@ -17,6 +17,13 @@ def generate_launch_description():
     params_file = LaunchConfiguration('params_file')
     voc_file = LaunchConfiguration('voc_file')
 
+    remappings = [
+        ('/camera/image_raw', '/image_raw'),
+        ('/camera/camera_info', '/camera_info'),
+        ('/orb_slam2_mono_node/debug_info', '/orb_slam2_mono_node/image_raw'),
+        ('/orb_slam2_mono_node/camera_info', '/orb_slam2_mono_node/camera_info')
+    ]
+
     return LaunchDescription([
         DeclareLaunchArgument(
             'use_sim_time',
@@ -53,6 +60,7 @@ def generate_launch_description():
             package='orb_slam2_ros',
             executable='orb_slam2_ros_mono',
             name='orb_slam2_mono',
-            output='screen'
+            output='screen',
+            remappings=remappings
         )
     ])
